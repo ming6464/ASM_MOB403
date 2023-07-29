@@ -14,7 +14,7 @@ const commentShema = new db.mongoose.Schema({
     require: true,
   },
   time: {
-    type: String,
+    type: Number,
   },
 });
 module.exports = db.mongoose.model("Comment", commentShema);

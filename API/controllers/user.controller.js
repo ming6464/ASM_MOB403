@@ -4,27 +4,27 @@ const User = require("../models/User.model");
 const GetAll = async (req, res, next) => {
   try {
     let list = await User.find();
-    res.json({ list });
+    res.json(list);
   } catch (err) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 const GetElement = async (req, res, next) => {
   try {
     const _id = req.params.id;
     const user = await User.findOne({ _id: _id });
-    res.json({ user });
+    res.json(user);
   } catch (error) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 const CreateElement = async (req, res, next) => {
   try {
     let user = new User(req.body);
     await user.save();
-    res.json({ user });
+    res.json(user);
   } catch (error) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 const UpdateElement = async (req, res, next) => {
@@ -32,25 +32,25 @@ const UpdateElement = async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
     await user.save({ $set: req.body });
-    res.json({ user });
+    res.json(user);
   } catch (error) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 const DeleteElement = async (req, res, next) => {
   try {
     await User.deleteOne({ _id: req.params.id });
-    res.json({ mes: "true" });
+    res.json(true);
   } catch (error) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 const DeleteAll = async (req, res, next) => {
   try {
     await User.deleteMany();
-    res.json({ mes: "true" });
+    res.json(true);
   } catch (error) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 

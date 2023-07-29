@@ -12,9 +12,9 @@ const Login = async (req, res) => {
 
     if (!user) throw Error;
 
-    res.json({ result: "true", mes: "Đăng nhập thành công !", user });
+    res.json({ result: true, mes: "Đăng nhập thành công !", user: user });
   } catch (err) {
-    res.json({ result: "false", mes: "Thông tin không chính xác !" });
+    res.json({ result: false, mes: "Thông tin không chính xác !" });
   }
 };
 
@@ -23,17 +23,17 @@ const Register = async (req, res) => {
     const user = new User(req.body);
     try {
       await User.findOne({ username: user.username });
-      res.json({ result: "false", mes: "username đã tồn tại !" });
+      res.json({ result: false, mes: "username đã tồn tại !" });
     } catch (err) {}
     try {
       await User.findOne({ email: user.email });
-      res.json({ result: "false", mes: "User đã tồn tại !" });
+      res.json({ result: false, mes: "User đã tồn tại !" });
     } catch (err) {}
 
     await user.save();
-    res.json({ result: "true", mes: "Đăng ký thành công !" });
+    res.json({ result: true, mes: "Đăng ký thành công !" });
   } catch (err) {
-    res.json({ result: "false", mes: "Đăng ký thất bại !" });
+    res.json({ result: false, mes: "Đăng ký thất bại !" });
   }
 };
 
@@ -50,9 +50,9 @@ const GetCommentWithStoryID = async (req, res) => {
       } catch (err) {}
     }
 
-    res.json({ result: "true", list });
+    res.json({ result: true, list });
   } catch (err) {
-    res.json({ result: "false" });
+    res.json({ result: false });
   }
 };
 

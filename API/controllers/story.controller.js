@@ -3,7 +3,9 @@ const Comment = require("../models/Comment.model");
 
 const GetElementByName = async (req, res, next) => {
   try {
-    const ten = req.body.ten.toLowerCase();
+    //const ten = req.body.ten.toLowerCase();
+    const ten = req.params.ten.toLowerCase();
+    console.log(ten);
     let list = await Story.find();
     let list1 = [];
     for (let i = 0; i < list.length; i++) {
@@ -12,7 +14,7 @@ const GetElementByName = async (req, res, next) => {
         list1.push(list[i]);
       }
     }
-    res.json({ list1 });
+    res.json(list1);
   } catch (err) {
     res.json({ mes: "false" });
   }
@@ -20,18 +22,20 @@ const GetElementByName = async (req, res, next) => {
 
 const GetAll = async (req, res, next) => {
   try {
-    let list = await Story.find();
-    res.json({ list });
+    let list = await Story.find().populate("Comments");
+    res.json(list);
   } catch (err) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 const GetElement = async (req, res, next) => {
   try {
-    const story = await Story.findOne({ _id: req.params.id });
-    res.json({ story });
+    const story = await Story.findOne({ _id: req.params.id }).populate(
+      "Comments"
+    );
+    res.json(story);
   } catch (error) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 const CreateElement = async (req, res, next) => {
@@ -39,19 +43,18 @@ const CreateElement = async (req, res, next) => {
     let story = new Story(req.body);
 
     await story.save();
-    res.json({ story });
+    res.json(story);
   } catch (error) {
-    res.json({ Mes: "false" });
+    res.json(false);
   }
 };
 const UpdateElement = async (req, res, next) => {
   try {
     const story = await Story.findById(req.params.id);
-
     await story.save({ $set: req.body });
-    res.json({ story });
+    res.json(story);
   } catch (error) {
-    res.json({ Mes: "false" });
+    res.json(false);
   }
 };
 const DeleteElement = async (req, res, next) => {
@@ -64,9 +67,9 @@ const DeleteElement = async (req, res, next) => {
       } catch (err) {}
     }
     await Story.findByIdAndDelete(story.id);
-    res.json({ mes: "true" });
+    res.json(true);
   } catch (error) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 const DeleteAll = async (req, res, next) => {
@@ -84,9 +87,9 @@ const DeleteAll = async (req, res, next) => {
     }
 
     await Story.deleteMany();
-    res.json({ mes: "true" });
+    res.json(true);
   } catch (error) {
-    res.json({ mes: "false" });
+    res.json(false);
   }
 };
 

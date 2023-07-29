@@ -17,7 +17,7 @@ const storyShema = new db.mongoose.Schema({
     Unique: true,
   },
   timeRelease: {
-    type: String,
+    type: Number,
     require: true,
     Unique: true,
   },

@@ -14,7 +14,7 @@ const userShema = new db.mongoose.Schema({
     type: String,
     require: true,
   },
-  fullname: {
+  fullName: {
     type: String,
   },
 });
