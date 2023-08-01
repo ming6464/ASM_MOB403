@@ -78,7 +78,7 @@ public class DetailStory extends AppCompatActivity {
         if(text.length() == 0) return;
         Comment comment = new Comment();
         comment.setStoryID(ValuesSave.CURRENT_ID_STORY);
-        comment.setUserID(ValuesSave.CURRENT_ID_USER);
+        comment.setUserID(ValuesSave.USER.get_id());
         comment.setContent(text);
         Call<Comment> call = ContainAPI.COMMENT().CreateElement(comment);
         call.enqueue(new Callback<Comment>() {

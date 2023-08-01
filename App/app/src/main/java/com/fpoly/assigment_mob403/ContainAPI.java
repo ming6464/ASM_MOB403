@@ -1,5 +1,6 @@
 package com.fpoly.assigment_mob403;
 
+import com.fpoly.assigment_mob403.API.API;
 import com.fpoly.assigment_mob403.API.API_Comment;
 import com.fpoly.assigment_mob403.API.API_Story;
 import com.fpoly.assigment_mob403.API.API_User;
@@ -15,11 +16,12 @@ public class ContainAPI {
     public static final String UpdateElement = "/update/{id}";
     public static final String DeleteElement = "/delete/{id}";
     public static final String DeleteAll = "/delete";
-    public static final String URL = "http://192.168.11.103:9000/";
+    public static final String URL = "http://192.168.1.39:9000/";
 
-    public static API_Comment API_COMMENT;
-    public static API_Story API_STORY;
-    public static API_User API_USER;
+    private static API_Comment API_COMMENT;
+    private static API_Story API_STORY;
+    private static API_User API_USER;
+    private static API _API;
     private static Retrofit retrofit;
 
     private static Retrofit GetRetrofit(){
@@ -49,6 +51,11 @@ public class ContainAPI {
             API_USER = GetRetrofit().create(API_User.class);
         }
         return API_USER;
+    }
+
+    public static API API(){
+        if(_API == null) _API = GetRetrofit().create(API.class);
+        return _API;
     }
 
 }

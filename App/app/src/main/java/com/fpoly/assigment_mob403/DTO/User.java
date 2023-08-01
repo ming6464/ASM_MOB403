@@ -7,15 +7,18 @@ public class User {
     private String email;
     private String fullName;
 
+    private String avatar;
+
     public User() {
     }
 
-    public User(String _id, String username, String password, String email, String fullName) {
+    public User(String _id, String username, String password, String email, String fullName,String avatar) {
         this._id = _id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.fullName = fullName;
+        this.avatar = avatar;
     }
 
     @Override
@@ -27,6 +30,14 @@ public class User {
                 ", email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +
                 '}';
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String get_id() {

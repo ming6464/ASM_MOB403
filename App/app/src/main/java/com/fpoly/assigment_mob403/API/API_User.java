@@ -25,7 +25,7 @@ public interface API_User {
     Call<User> CreateElement(@Body User user);
 
     @PUT(Router + ContainAPI.UpdateElement)
-    Call<User> UpdateElement(@Path("id") String id);
+    Call<User> UpdateElement(@Path("id") String id, @Body User user);
 
     @PUT(Router + ContainAPI.DeleteElement)
     Call<User> DeleteElement(@Path("id") String id);

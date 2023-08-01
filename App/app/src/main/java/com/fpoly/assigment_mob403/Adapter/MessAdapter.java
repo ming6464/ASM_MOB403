@@ -48,11 +48,10 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                //GeneralFunc.LoadImageFromLink(response.body().get_id(),holder.img_avatar);
                 holder.tv_name.setText(response.body().getUsername());
                 holder.tv_name1.setText(response.body().getUsername());
                 String userId = cm.getUserID();
-                if(userId.equals(ValuesSave.CURRENT_ID_USER)){
+                if(userId.equals(ValuesSave.USER.get_id())){
                     holder.layout.setVisibility(View.GONE);
                     holder.layout1.setVisibility(View.VISIBLE);
                 }else{

@@ -16,6 +16,11 @@ const userShema = new db.mongoose.Schema({
   },
   fullName: {
     type: String,
+    require: true,
+  },
+  avatar: {
+    type: String,
+    require: true,
   },
 });
 module.exports = db.mongoose.model("User", userShema);

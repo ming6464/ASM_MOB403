@@ -11,8 +11,8 @@ import retrofit2.http.POST;
 public interface API {
     public static final String Router = "api";
 
-    @POST(Router + "/login")
-    Call<Result> Login(@Body String email, @Body String password);
+    @POST("/api/login")
+    Call<Result> Login(@Body User user);
 
     @POST(Router + "/register")
     Call<Result> Register(@Body User user);

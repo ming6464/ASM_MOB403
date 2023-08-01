@@ -4,11 +4,11 @@ const Story = require("../models/Story.model");
 
 const Login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    console.log(email, password);
+    console.log(username, password);
 
-    const user = await User.findOne({ email, password });
+    const user = await User.findOne({ username, password });
 
     if (!user) throw Error;
 
