@@ -62,6 +62,15 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
         return binding.getRoot();
     }
 
+    private void HandleShow(boolean isShow){
+        if(isShow){
+            binding.fragReadStoryPgLoad.setVisibility(View.VISIBLE);
+        }else{
+            binding.fragReadStoryPgLoad.setVisibility(View.INVISIBLE);
+
+        }
+    }
+
     public static ReadStoryFragment newInstance() {
         ReadStoryFragment fragment = new ReadStoryFragment();
         return fragment;
@@ -129,46 +138,46 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
     @Override
     public void onResume() {
         super.onResume();
+
+        HandleShow(true);
         handler = new Handler();
         LoadList();
-        PlayDelayUpdateList();
-    }
-
-    private void PlayDelayUpdateList(){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Gọi hàm bạn muốn thực thi sau 1 phút ở đây (gọi hàm a)
-                LoadList();
-                handler.postDelayed(this, 60000);
-            }
-        }, 60000);
     }
 
     private void LoadList(){
-        Call<List<Story>> call = ContainAPI.STORY().GetAll();
-        call.enqueue(new Callback<List<Story>>() {
-            @Override
-            public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
 
-                boolean checkLoad = false;
-                if(response.body().size() != storyList.size()) checkLoad = true;
-                else {
-                    
+        try {
+            HandleShow(true);
+            Call<List<Story>> call = ContainAPI.STORY().GetAll();
+            call.enqueue(new Callback<List<Story>>() {
+                @Override
+                public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
+
+                    boolean checkLoad = false;
+                    if(response.body().size() != storyList.size()) checkLoad = true;
+                    else {
+
+                    }
+
+                    if(checkLoad){
+                        storyList = response.body();
+                        curStoryList = storyList;
+                        itemStoryAdapter.SetData(curStoryList);
+                    }
+                    HandleShow(false);
                 }
 
-                if(checkLoad){
-                    storyList = response.body();
-                    curStoryList = storyList;
-                    itemStoryAdapter.SetData(curStoryList);
+                @Override
+                public void onFailure(Call<List<Story>> call, Throwable t) {
+                    HandleShow(false);
+                    Toast.makeText(getActivity(), "Load không thành công !", Toast.LENGTH_SHORT).show();
                 }
-            }
+            });
+        }catch (Exception e){
+            HandleShow(false);
+        }
 
-            @Override
-            public void onFailure(Call<List<Story>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Load không thành công !", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     @Override

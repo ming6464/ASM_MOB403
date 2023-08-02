@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fpoly.assigment_mob403.Activity.EditUser;
+import com.fpoly.assigment_mob403.Activity.Login;
 import com.fpoly.assigment_mob403.GeneralFunc;
 import com.fpoly.assigment_mob403.R;
 import com.fpoly.assigment_mob403.ValuesSave;
@@ -48,7 +49,8 @@ public class UserFragment extends Fragment {
     }
 
     private void LogOut() {
-
+        startActivity(new Intent(getActivity(), Login.class));
+        getActivity().finish();
     }
 
     @Override

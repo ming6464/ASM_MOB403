@@ -39,8 +39,18 @@ public class DetailStory extends AppCompatActivity {
         binding = ActivityDetailStoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         story = (Story) getIntent().getExtras().getSerializable(ReadStoryFragment.KEYBUNDLE);
+
         Init();
         AddAction();
+    }
+
+    private void HandleShow(boolean isShow){
+        if(isShow){
+            binding.actiDetailStoryPgLoad.setVisibility(View.VISIBLE);
+        }else{
+            binding.actiDetailStoryPgLoad.setVisibility(View.INVISIBLE);
+
+        }
     }
 
     private void Init(){
@@ -123,33 +133,44 @@ public class DetailStory extends AppCompatActivity {
     }
 
     private void LoadMess(){
-        Call<List<Comment>> call = ContainAPI.COMMENT().GetElementByStoryID(ValuesSave.CURRENT_ID_STORY);
-        call.enqueue(new Callback<List<Comment>>() {
-            @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                boolean check = false;
 
-                if(response.body() == null){
-                    commentList = new ArrayList<>();
-                    messAdapter.SetData(commentList);
-                    return;
+        try {
+            HandleShow(true);
+            Call<List<Comment>> call = ContainAPI.COMMENT().GetElementByStoryID(ValuesSave.CURRENT_ID_STORY);
+            call.enqueue(new Callback<List<Comment>>() {
+                @Override
+                public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                    boolean check = false;
+
+                    if(response.body() == null){
+                        commentList = new ArrayList<>();
+                        messAdapter.SetData(commentList);
+                        return;
+                    }
+
+                    if(commentList.size() != response.body().size()) check = true;
+                    else{
+
+                    }
+
+                    if(check){
+                        commentList = response.body();
+                        messAdapter.SetData(commentList);
+                    }
+                    HandleShow(false);
+
                 }
 
-                if(commentList.size() != response.body().size()) check = true;
-                else{
+                @Override
+                public void onFailure(Call<List<Comment>> call, Throwable t) {
+                    HandleShow(false);
 
                 }
+            });
+        }catch (Exception e){
+            HandleShow(false);
+        }
 
-                if(check){
-                    commentList = response.body();
-                    messAdapter.SetData(commentList);
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<Comment>> call, Throwable t) {
-
-            }
-        });
     }
 }
