@@ -38,9 +38,29 @@ public class DetailStory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDetailStoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        story = (Story) getIntent().getExtras().getSerializable(ReadStoryFragment.KEYBUNDLE);
 
-        Init();
+        HandleShow(true);
+
+        String _id = getIntent().getStringExtra(ReadStoryFragment.KEYBUNDLE);
+
+        Call<Story> call = ContainAPI.STORY().GetElement(_id);
+
+
+        call.enqueue(new Callback<Story>() {
+            @Override
+            public void onResponse(Call<Story> call, Response<Story> response) {
+                story = response.body();
+                Init();
+                HandleShow(false);
+            }
+
+            @Override
+            public void onFailure(Call<Story> call, Throwable t) {
+
+            }
+        });
+
+
         AddAction();
     }
 

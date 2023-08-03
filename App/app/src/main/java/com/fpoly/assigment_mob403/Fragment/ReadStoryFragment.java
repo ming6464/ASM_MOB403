@@ -152,18 +152,9 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
             call.enqueue(new Callback<List<Story>>() {
                 @Override
                 public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
-
-                    boolean checkLoad = false;
-                    if(response.body().size() != storyList.size()) checkLoad = true;
-                    else {
-
-                    }
-
-                    if(checkLoad){
-                        storyList = response.body();
-                        curStoryList = storyList;
-                        itemStoryAdapter.SetData(curStoryList);
-                    }
+                    storyList = response.body();
+                    curStoryList = storyList;
+                    itemStoryAdapter.SetData(curStoryList);
                     HandleShow(false);
                 }
 
@@ -181,11 +172,10 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
     }
 
     @Override
-    public void OnClickItem(int index) {
+    public void OnClickItem(String _id) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(KEYBUNDLE,curStoryList.get(index));
         Intent intent = new Intent(getActivity(), DetailStory.class);
-        intent.putExtras(bundle);
+        intent.putExtra(KEYBUNDLE,_id);
         startActivity(intent);
     }
 

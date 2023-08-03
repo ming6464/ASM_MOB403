@@ -1,5 +1,6 @@
 package com.fpoly.assigment_mob403.Adapter;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,21 +43,25 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Comment cm = list.get(position);
-        holder.tv_comment.setText(cm.getContent());
-        holder.tv_comment1.setText(cm.getContent());
         Call<User> call = ContainAPI.USER().GetElement(cm.getUserID());
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                holder.tv_name.setText(response.body().getUsername());
-                holder.tv_name1.setText(response.body().getUsername());
                 String userId = cm.getUserID();
+
                 if(userId.equals(ValuesSave.USER.get_id())){
+                    holder.tv_comment1.setText(cm.getContent());
                     holder.layout.setVisibility(View.GONE);
                     holder.layout1.setVisibility(View.VISIBLE);
+                    holder.tv_name1.setText(response.body().getUsername());
+                    GeneralFunc.LoadImageFromLink(response.body().getAvatar(),holder.img_avatar1);
+
                 }else{
                     holder.layout.setVisibility(View.VISIBLE);
                     holder.layout1.setVisibility(View.GONE);
+                    holder.tv_name.setText(response.body().getUsername());
+                    holder.tv_comment.setText(cm.getContent());
+                    GeneralFunc.LoadImageFromLink(response.body().getAvatar(),holder.img_avatar);
                 }
                 holder.layoutMes.setVisibility(View.VISIBLE);
             }

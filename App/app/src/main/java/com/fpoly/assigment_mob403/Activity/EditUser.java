@@ -12,6 +12,8 @@ import com.fpoly.assigment_mob403.R;
 import com.fpoly.assigment_mob403.ValuesSave;
 import com.fpoly.assigment_mob403.databinding.ActivityEditUserBinding;
 
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -91,6 +93,10 @@ public class EditUser extends AppCompatActivity {
 
         }
     }
+    public static boolean isValidEmail(String email) {
+        String emailPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        return Pattern.matches(emailPattern, email);
+    }
 
     private void ActionEditButton() {
 
@@ -103,6 +109,12 @@ public class EditUser extends AppCompatActivity {
 
             if(avatar.isEmpty() || email.isEmpty() || fullName.isEmpty() || userName.isEmpty()) {
                 Toast.makeText(this, "Thông tin thiếu !", Toast.LENGTH_SHORT).show();
+                HandleShow(false);
+                return;
+            }
+
+            if(!isValidEmail(email)){
+                Toast.makeText(this, "Email sai định dạng !", Toast.LENGTH_SHORT).show();
                 HandleShow(false);
                 return;
             }

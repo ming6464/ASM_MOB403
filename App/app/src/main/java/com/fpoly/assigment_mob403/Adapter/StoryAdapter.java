@@ -1,5 +1,6 @@
 package com.fpoly.assigment_mob403.Adapter;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder>{
     }
 
     public interface EventItemStory{
-        public void OnClickItem(int index);
+        public void OnClickItem(String _id);
     }
 
     @NonNull
@@ -45,8 +46,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Story story = list.get(position);
         holder.tv_name.setText(story.getName());
+        holder.btn.setOnClickListener(v -> event.OnClickItem(story.get_id()));
         GeneralFunc.LoadImageFromLink(story.getBackground(),holder.img_avatar);
-        holder.btn.setOnClickListener(v -> event.OnClickItem(position));
     }
 
     @Override

@@ -20,19 +20,30 @@ const Login = async (req, res) => {
 
 const Register = async (req, res) => {
   try {
-    const user = new User(req.body);
-    try {
-      await User.findOne({ username: user.username });
-      res.json({ result: false, mes: "username đã tồn tại !" });
-    } catch (err) {}
-    try {
-      await User.findOne({ email: user.email });
-      res.json({ result: false, mes: "User đã tồn tại !" });
-    } catch (err) {}
+    let { username, password, email, fullName, avatar } = req.body;
 
-    await user.save();
+    console.log(username, password, email, fullName, avatar);
+
+    try {
+      let user1 = await User.findOne({ username: username });
+      if (user1) {
+        res.json({ result: false, mes: "username đã tồn tại !" });
+      }
+    } catch (error) {}
+
+    try {
+      let user1 = await User.findOne({ email: email });
+      if (user1) {
+        res.json({ result: false, mes: "username đã tồn tại !" });
+      }
+    } catch (error) {}
+
+    let userz = new User(req.body);
+    console.log(userz, true);
+    await userz.save();
     res.json({ result: true, mes: "Đăng ký thành công !" });
   } catch (err) {
+    console.log(err);
     res.json({ result: false, mes: "Đăng ký thất bại !" });
   }
 };
