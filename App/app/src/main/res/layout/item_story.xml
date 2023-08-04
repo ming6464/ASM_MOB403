@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="250dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/corner_black5dp"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/corner_white5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/itemStory_img_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="190dp" />
+
+        <TextView
+            android:id="@+id/itemStory_tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="SINH HOẠT CỦA VÕ ĐẾ SAU KHI ẨN CƯ"
+            android:textSize="12dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/itemStory_btn"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>
