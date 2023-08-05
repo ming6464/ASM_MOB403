@@ -3,12 +3,15 @@ package com.fpoly.assigment_mob403.Adapter;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +32,12 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
 
     private List<Comment> list;
 
+    private EventMess event;
+
+    public MessAdapter(EventMess eventMess){
+        event = eventMess;
+    }
+
     public void SetData(List<Comment> list){
         this.list = list;
         notifyDataSetChanged();
@@ -38,6 +47,10 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mess,parent,false));
+    }
+
+    public interface EventMess{
+        public void HoldMess(int pos);
     }
 
     @Override
@@ -55,15 +68,17 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
                     holder.layout1.setVisibility(View.VISIBLE);
                     holder.tv_name1.setText(response.body().getUsername());
                     GeneralFunc.LoadImageFromLink(response.body().getAvatar(),holder.img_avatar1);
-
+                    holder.btn_option1.setOnClickListener( v -> event.HoldMess(holder.getAdapterPosition()));
                 }else{
                     holder.layout.setVisibility(View.VISIBLE);
                     holder.layout1.setVisibility(View.GONE);
                     holder.tv_name.setText(response.body().getUsername());
                     holder.tv_comment.setText(cm.getContent());
                     GeneralFunc.LoadImageFromLink(response.body().getAvatar(),holder.img_avatar);
+                    holder.btn_option.setOnClickListener( v -> event.HoldMess(holder.getAdapterPosition()));
                 }
                 holder.layoutMes.setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -91,6 +106,8 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
         private TextView tv_comment1;
         private ImageView img_avatar1;
 
+        private Button btn_option,btn_option1;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_comment = itemView.findViewById(R.id.itemMes_tv_comment);
@@ -102,6 +119,8 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
             tv_comment1 = itemView.findViewById(R.id.itemMes_tv_comment1);
             img_avatar1 = itemView.findViewById(R.id.itemMes_img_avatar1);
             layoutMes = itemView.findViewById(R.id.itemMes_layout_mes);
+            btn_option1 = itemView.findViewById(R.id.itemMes_btn_option1);
+            btn_option = itemView.findViewById(R.id.itemMes_btn_option);
         }
     }
 

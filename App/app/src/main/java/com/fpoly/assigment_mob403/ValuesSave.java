@@ -9,5 +9,4 @@ public class ValuesSave {
     public static User USER  = new User();
 
     public static boolean FirtOpen = true;
-
 }

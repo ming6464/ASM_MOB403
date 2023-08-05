@@ -33,21 +33,21 @@ public class Login extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-//        if(ValuesSave.FirtOpen){
-//            binding.actiLoginTvWellcomeScreen.setVisibility(View.VISIBLE);
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    binding.actiLoginTvWellcomeScreen.setVisibility(View.INVISIBLE);
-//                    ValuesSave.FirtOpen = false;
-//                }
-//            },1800);
-//
-//        }else{
-//            binding.actiLoginTvWellcomeScreen.setVisibility(View.INVISIBLE);
-//        }
+        if(ValuesSave.FirtOpen){
+            binding.actiLoginTvWellcomeScreen.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    binding.actiLoginTvWellcomeScreen.setVisibility(View.INVISIBLE);
+                    ValuesSave.FirtOpen = false;
+                }
+            },1800);
 
-        LogIn("giamin","121");
+        }else{
+            binding.actiLoginTvWellcomeScreen.setVisibility(View.INVISIBLE);
+        }
+
+        //LogIn("giamin","121");
 
     }
 

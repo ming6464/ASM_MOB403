@@ -28,7 +28,7 @@ public interface API_Comment {
     Call<Comment> CreateElement(@Body Comment comment);
 
     @PUT(Router + ContainAPI.UpdateElement)
-    Call<Comment> UpdateElement(@Path("id") String id);
+    Call<Comment> UpdateElement(@Path("id") String id,@Body Comment comment);
 
     @PUT(Router + ContainAPI.DeleteElement)
     Call<Comment> DeleteElement(@Path("id") String id);

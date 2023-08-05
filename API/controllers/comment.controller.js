@@ -68,18 +68,18 @@ const CreateElement = async (req, res, next) => {
 const UpdateElement = async (req, res, next) => {
   try {
     const comment = await Comment.findById(req.params.id);
-    if (req.body.storyID) {
-      if (comment.storyID && req.body.storyID != comment.storyID) {
-        try {
-          const story1 = await Story.findById(comment.storyID);
-          await story1.Comments.pull(req.params.id);
-          await story1.save();
-        } catch (error) {}
-      }
-      const story = await Story.findById(req.body.storyID);
-      story.Comments.push(comment._id);
-      await story.save();
-    }
+    // if (req.body.storyID) {
+    //   if (comment.storyID && req.body.storyID != comment.storyID) {
+    //     try {
+    //       const story1 = await Story.findById(comment.storyID);
+    //       await story1.Comments.pull(req.params.id);
+    //       await story1.save();
+    //     } catch (error) {}
+    //   }
+    //   const story = await Story.findById(req.body.storyID);
+    //   story.Comments.push(comment._id);
+    //   await story.save();
+    // }
 
     await comment.updateOne({ $set: req.body });
 
@@ -104,7 +104,7 @@ const DeleteElement = async (req, res, next) => {
     }
 
     await Comment.deleteOne({ _id: comment.id });
-    res.json(true);
+    res.json(comment);
   } catch (error) {
     res.json(false);
   }

@@ -57,7 +57,7 @@ public class Comment implements Serializable {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(long time) {
         this.time = time;
     }
 

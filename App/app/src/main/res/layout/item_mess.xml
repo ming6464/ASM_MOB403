@@ -9,13 +9,15 @@
     android:layout_marginStart="10dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/itemMes_layout_mes"
-        android:visibility="invisible"
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="invisible"
             android:id="@+id/itemMes_layout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/itemMes_btn_option"
             android:layout_height="match_parent">
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -53,9 +55,10 @@
                 android:text="Hello world  "/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:visibility="invisible"
             android:id="@+id/itemMes_layout_1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/itemMes_btn_option1"
             android:layout_height="match_parent">
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -94,5 +97,23 @@
                 android:textColor="#000000"
                 android:text="Hello world  "/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/itemMes_btn_option1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/menu_vertical"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:visibility="invisible"
+            android:id="@+id/itemMes_btn_option"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/menu_vertical"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -151,27 +151,30 @@ public class MyStory extends AppCompatActivity implements StoryAdapter.EventItem
 
     @Override
     public void DeleteItem(String _id) {
-        HandleLoad(true);
-        ContainAPI.STORY().DeleteElement(_id).enqueue(new Callback<Story>() {
-            @Override
-            public void onResponse(Call<Story> call, Response<Story> response) {
-                Toast.makeText(MyStory.this, "Xoá thành công", Toast.LENGTH_SHORT).show();
+        Runnable runnable = () -> {
+            HandleLoad(true);
+            ContainAPI.STORY().DeleteElement(_id).enqueue(new Callback<Story>() {
+                @Override
+                public void onResponse(Call<Story> call, Response<Story> response) {
+                    Toast.makeText(MyStory.this, "Xoá thành công", Toast.LENGTH_SHORT).show();
 
-                HandleLoad(false);
+                    HandleLoad(false);
 
-                storyList.removeIf(story -> story.get_id().equals(_id));
+                    storyList.removeIf(story -> story.get_id().equals(_id));
 
-                curStoryList.removeIf(v -> v.get_id().equals(_id));
+                    curStoryList.removeIf(v -> v.get_id().equals(_id));
 
-                itemStoryAdapter.SetData(curStoryList,true);
-            }
+                    itemStoryAdapter.SetData(curStoryList,true);
+                }
 
-            @Override
-            public void onFailure(Call<Story> call, Throwable t) {
-                Log.d("Hello", t.toString());
-                Toast.makeText(MyStory.this, "Xoá thất bại onFailure", Toast.LENGTH_SHORT).show();
-                HandleLoad(false);
-            }
-        });
+                @Override
+                public void onFailure(Call<Story> call, Throwable t) {
+                    Log.d("Hello", t.toString());
+                    Toast.makeText(MyStory.this, "Xoá thất bại onFailure", Toast.LENGTH_SHORT).show();
+                    HandleLoad(false);
+                }
+            });
+        };
+        GeneralFunc.ShowTwoOptionDsialog(this,"Yes",runnable,"No",() -> {},"Xoá truyện","Xác nhận xoá");
     }
 }

@@ -1,11 +1,15 @@
 package com.fpoly.assigment_mob403;
 
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import java.net.URL;
 import java.text.Normalizer;
@@ -56,6 +60,40 @@ public class GeneralFunc {
         newThread.start();
     }
 
+    public static void ShowTwoOptionDsialog(Context context,String name1,Runnable action1,String name2,Runnable action2,String title,String mess) {
+        // Xây dựng dialog với AlertDialog.Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        // Thiết lập tiêu đề của dialog
+        builder.setTitle(title);
+
+        // Thiết lập thông báo trong dialog
+        builder.setMessage(mess);
+
+        if(name1 == null || name1.isEmpty()) name1 = "Yes";
+        if(name2 == null || name2.isEmpty()) name2 = "No";
+
+        // Thiết lập nút "Yes" và xử lý sự kiện khi nhấn vào nó
+        builder.setPositiveButton(name1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(action1 != null) action1.run();
+            }
+        });
+
+        // Thiết lập nút "No" và xử lý sự kiện khi nhấn vào nó
+        builder.setNegativeButton(name2, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(action2 != null) action2.run();
+            }
+        });
+
+        // Tạo và hiển thị dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     public static List<Bitmap> LoadImageFuture(List<String> links){
         List<Bitmap> bitmaps = new ArrayList<>();
         ExecutorService executorService = Executors.newFixedThreadPool(links.size());
@@ -80,6 +118,57 @@ public class GeneralFunc {
 
         return bitmaps;
     }
+
+
+    public static void ShowThreeOptionsDialog(Context context,String title,String mes,String name1,Runnable action1,String name2,Runnable action2,String name3,Runnable action3) {
+        // Xây dựng dialog với AlertDialog.Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        // Thiết lập tiêu đề của dialog
+        builder.setTitle(title);
+
+        // Thiết lập thông báo trong dialog
+        builder.setMessage(mes);
+
+        // Thiết lập nút "Yes" và xử lý sự kiện khi nhấn vào nó
+
+        if(name1 == null || name1.isEmpty()) name1 = "Yes";
+        if(name2 == null || name2.isEmpty()) name2 = "No";
+        if(name3 == null || name3.isEmpty()) name3 = "Cancle";
+
+        builder.setPositiveButton(name1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(action1 != null) action1.run();
+            }
+        });
+
+        // Thiết lập nút "No" và xử lý sự kiện khi nhấn vào nó
+        builder.setNegativeButton(name2, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Xử lý khi người dùng chọn "No"
+                // Ví dụ: gọi hàm hoặc thực hiện hành động cần thiết
+                if(action2 != null) action2.run();
+            }
+        });
+
+        // Thiết lập nút "Cancel" và xử lý sự kiện khi nhấn vào nó
+        builder.setNeutralButton(name3, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Xử lý khi người dùng chọn "Cancel"
+                // Ví dụ: gọi hàm hoặc thực hiện hành động cần thiết
+                if(action3 != null) action3.run();
+            }
+        });
+
+        // Tạo và hiển thị dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
 
     public static String ConvertToStringDate(long milli){
         return sdf.format(new Date(milli));
