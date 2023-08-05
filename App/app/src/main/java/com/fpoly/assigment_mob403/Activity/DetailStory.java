@@ -115,8 +115,8 @@ public class DetailStory extends AppCompatActivity implements MessAdapter.EventM
         binding.actiDetailStoryBtnSend.setOnClickListener(v -> ActionOnClickSend());
         binding.actiDetailStoryBtnBackNormal1.setOnClickListener(v -> ActionOnClickBackNormal1());
         binding.actiDetailStoryBtnCloseEditMess.setOnClickListener(v -> {
-
-
+            HandleEditMess(false);
+            binding.actiDetailStoryEdComment.setText("");
         });
     }
 

@@ -56,26 +56,28 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Comment cm = list.get(position);
+        String userId = cm.getUserID();
+        Log.d("cTAG", userId);
         Call<User> call = ContainAPI.USER().GetElement(cm.getUserID());
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                String userId = cm.getUserID();
-
+                holder.btn_option1.setVisibility(View.GONE);
+                holder.layout1.setVisibility(View.GONE);
+                holder.layout.setVisibility(View.GONE);
                 if(userId.equals(ValuesSave.USER.get_id())){
                     holder.tv_comment1.setText(cm.getContent());
-                    holder.layout.setVisibility(View.GONE);
                     holder.layout1.setVisibility(View.VISIBLE);
                     holder.tv_name1.setText(response.body().getUsername());
                     GeneralFunc.LoadImageFromLink(response.body().getAvatar(),holder.img_avatar1);
                     holder.btn_option1.setOnClickListener( v -> event.HoldMess(holder.getAdapterPosition()));
+                    holder.btn_option1.setVisibility(View.VISIBLE);
+
                 }else{
                     holder.layout.setVisibility(View.VISIBLE);
-                    holder.layout1.setVisibility(View.GONE);
                     holder.tv_name.setText(response.body().getUsername());
                     holder.tv_comment.setText(cm.getContent());
                     GeneralFunc.LoadImageFromLink(response.body().getAvatar(),holder.img_avatar);
-                    holder.btn_option.setOnClickListener( v -> event.HoldMess(holder.getAdapterPosition()));
                 }
                 holder.layoutMes.setVisibility(View.VISIBLE);
 
@@ -106,7 +108,7 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
         private TextView tv_comment1;
         private ImageView img_avatar1;
 
-        private Button btn_option,btn_option1;
+        private Button btn_option1;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -120,7 +122,6 @@ public class MessAdapter extends RecyclerView.Adapter<MessAdapter.ViewHolder>{
             img_avatar1 = itemView.findViewById(R.id.itemMes_img_avatar1);
             layoutMes = itemView.findViewById(R.id.itemMes_layout_mes);
             btn_option1 = itemView.findViewById(R.id.itemMes_btn_option1);
-            btn_option = itemView.findViewById(R.id.itemMes_btn_option);
         }
     }
 
