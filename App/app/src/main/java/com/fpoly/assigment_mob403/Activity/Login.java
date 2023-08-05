@@ -31,29 +31,39 @@ public class Login extends AppCompatActivity {
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
 
-        if(ValuesSave.FirtOpen){
-            binding.actiLoginTvWellcomeScreen.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    binding.actiLoginTvWellcomeScreen.setVisibility(View.INVISIBLE);
-                    ValuesSave.FirtOpen = false;
-                }
-            },3000);
-
-        }else{
-            binding.actiLoginTvWellcomeScreen.setVisibility(View.INVISIBLE);
-        }
-
         setContentView(binding.getRoot());
+
+//        if(ValuesSave.FirtOpen){
+//            binding.actiLoginTvWellcomeScreen.setVisibility(View.VISIBLE);
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    binding.actiLoginTvWellcomeScreen.setVisibility(View.INVISIBLE);
+//                    ValuesSave.FirtOpen = false;
+//                }
+//            },1800);
+//
+//        }else{
+//            binding.actiLoginTvWellcomeScreen.setVisibility(View.INVISIBLE);
+//        }
+
+        LogIn("giamin","121");
+
     }
 
     public void ActionButtonLogin(View view) {
 
+        String username = binding.actiLoginEdUserName.getText().toString().trim();
+        String password = binding.actiLoginEdPass.getText().toString().trim();
+        LogIn(username,password);
+    }
+
+
+    private void LogIn(String userName,String pass){
         try {
             HandleShow(true);
-            String username = binding.actiLoginEdUserName.getText().toString().trim();
-            String password = binding.actiLoginEdPass.getText().toString().trim();
+            String username = userName.trim();
+            String password = pass.trim();
             if(username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Thông tin không được bỏ trống !", Toast.LENGTH_SHORT).show();
                 HandleShow(false);
@@ -86,6 +96,7 @@ public class Login extends AppCompatActivity {
             HandleShow(false);
         }
     }
+
     private void HandleShow(boolean isShow){
         if(isShow){
             binding.actiLoginPgLoad.setVisibility(View.VISIBLE);

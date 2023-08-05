@@ -16,9 +16,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:parentActivityName=".Activity.MyStory"
+            android:name=".Activity.EditStory"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MyStory"
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity" />
+        <activity
             android:name=".Activity.Register"
             android:exported="false"
-            android:parentActivityName=".Activity.Login"/>
+            android:parentActivityName=".Activity.Login" />
         <activity
             android:name=".Activity.Login"
             android:exported="true">
@@ -34,7 +42,7 @@
             android:parentActivityName=".Activity.MainActivity" />
         <activity
             android:name=".Activity.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Activity.DetailStory"
             android:parentActivityName=".Activity.MainActivity" />

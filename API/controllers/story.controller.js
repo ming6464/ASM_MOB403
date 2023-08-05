@@ -41,7 +41,6 @@ const GetElement = async (req, res, next) => {
 const CreateElement = async (req, res, next) => {
   try {
     let story = new Story(req.body);
-
     await story.save();
     res.json(story);
   } catch (error) {
@@ -50,9 +49,16 @@ const CreateElement = async (req, res, next) => {
 };
 const UpdateElement = async (req, res, next) => {
   try {
-    const story = await Story.findById(req.params.id);
-    await story.save({ $set: req.body });
-    res.json(story);
+    console.log(req.body);
+    const update = { $set: req.body };
+    const updatedStory = await Story.findByIdAndUpdate(req.params.id, update, {
+      new: true,
+    });
+
+    // const story = await Story.findById(req.params.id);
+    // await story.save({ $set: req.body });
+
+    res.json(updatedStory);
   } catch (error) {
     res.json(false);
   }
@@ -61,13 +67,19 @@ const DeleteElement = async (req, res, next) => {
   try {
     const story = await Story.findById(req.params.id);
 
+    console.log(req.params.id);
+
     for (let i = 0; i < story.Comments.length; i++) {
       try {
         await Comment.deleteOne({ _id: story.Comments[i] });
       } catch (err) {}
     }
+
     await Story.findByIdAndDelete(story.id);
-    res.json(true);
+
+    console.log(story);
+
+    res.json(story);
   } catch (error) {
     res.json(false);
   }

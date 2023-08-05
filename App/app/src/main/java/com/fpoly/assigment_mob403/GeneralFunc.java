@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.net.URL;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.regex.Pattern;
 
 public class GeneralFunc {
 
@@ -110,6 +112,12 @@ public class GeneralFunc {
 
     public static void ChangeColorButton(Button btn,String colorCode){
         btn.setBackgroundColor(Color.parseColor(colorCode));
+    }
+
+    public static String removeDiacritics(String input) {
+        String nfdNormalizedString = Normalizer.normalize(input, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("").toLowerCase();
     }
 
 }

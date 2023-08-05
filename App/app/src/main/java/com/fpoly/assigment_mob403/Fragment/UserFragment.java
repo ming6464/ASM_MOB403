@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.fpoly.assigment_mob403.Activity.EditUser;
 import com.fpoly.assigment_mob403.Activity.Login;
+import com.fpoly.assigment_mob403.Activity.MyStory;
 import com.fpoly.assigment_mob403.GeneralFunc;
 import com.fpoly.assigment_mob403.R;
 import com.fpoly.assigment_mob403.ValuesSave;
@@ -46,6 +47,11 @@ public class UserFragment extends Fragment {
     private void AddAction() {
         binding.fragUserBtnEdit.setOnClickListener(v -> startActivity(new Intent(getActivity(), EditUser.class)));
         binding.fragUserBtnLogOut.setOnClickListener(v -> LogOut());
+        binding.fragUserBtnMyStory.setOnClickListener(v -> ActionMyStoryButton());
+    }
+
+    private void ActionMyStoryButton() {
+        startActivity(new Intent(getActivity(), MyStory.class));
     }
 
     private void LogOut() {

@@ -64,7 +64,7 @@ public class Story implements Serializable {
         return timeRelease;
     }
 
-    public void setTimeRelease(int timeRelease) {
+    public void setTimeRelease(long timeRelease) {
         this.timeRelease = timeRelease;
     }
 

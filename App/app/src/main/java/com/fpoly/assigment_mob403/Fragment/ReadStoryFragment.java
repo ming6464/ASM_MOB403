@@ -21,6 +21,7 @@ import com.fpoly.assigment_mob403.Activity.DetailStory;
 import com.fpoly.assigment_mob403.Adapter.StoryAdapter;
 import com.fpoly.assigment_mob403.ContainAPI;
 import com.fpoly.assigment_mob403.DTO.Story;
+import com.fpoly.assigment_mob403.GeneralFunc;
 import com.fpoly.assigment_mob403.databinding.FragmentReadStoryBinding;
 
 import java.text.Normalizer;
@@ -96,7 +97,7 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
                 Log.d(TAG, "namePath: " + namePath + "/ length " + namePath.length());
                 if(namePath.length() == 0){
                     curStoryList = storyList;
-                    itemStoryAdapter.SetData(curStoryList);
+                    itemStoryAdapter.SetData(curStoryList,false);
                     return;
                 }
 
@@ -107,16 +108,15 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
                     if(name.contains(namePath)){
                         stories.add(st);
                     }else{
-                        String normalizedText = removeDiacritics(name);
-                        String normalizedZ = removeDiacritics(namePath);
-
+                        String normalizedText = GeneralFunc.removeDiacritics(name);
+                        String normalizedZ = GeneralFunc.removeDiacritics(namePath);
                         if(normalizedText.contains(normalizedZ)){
                             stories.add(st);
                         }
                     }
                 }
                 curStoryList = stories;
-                itemStoryAdapter.SetData(curStoryList);
+                itemStoryAdapter.SetData(curStoryList,false);
             }
 
             @Override
@@ -130,7 +130,7 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
         curStoryList = new ArrayList<>();
         storyList = new ArrayList<>();
         itemStoryAdapter = new StoryAdapter(this);
-        itemStoryAdapter.SetData(curStoryList);
+        itemStoryAdapter.SetData(curStoryList,false);
         binding.fragReadStoryRcStory.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         binding.fragReadStoryRcStory.setAdapter(itemStoryAdapter);
     }
@@ -154,7 +154,7 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
                 public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
                     storyList = response.body();
                     curStoryList = storyList;
-                    itemStoryAdapter.SetData(curStoryList);
+                    itemStoryAdapter.SetData(curStoryList,false);
                     HandleShow(false);
                 }
 
@@ -173,10 +173,14 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
 
     @Override
     public void OnClickItem(String _id) {
-        Bundle bundle = new Bundle();
         Intent intent = new Intent(getActivity(), DetailStory.class);
         intent.putExtra(KEYBUNDLE,_id);
         startActivity(intent);
+    }
+
+    @Override
+    public void DeleteItem(String _id) {
+
     }
 
     @Override
@@ -185,9 +189,5 @@ public class ReadStoryFragment extends Fragment implements StoryAdapter.EventIte
         handler.removeCallbacksAndMessages(null);
     }
 
-    private static String removeDiacritics(String input) {
-        String nfdNormalizedString = Normalizer.normalize(input, Normalizer.Form.NFD);
-        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        return pattern.matcher(nfdNormalizedString).replaceAll("").toLowerCase();
-    }
+
 }

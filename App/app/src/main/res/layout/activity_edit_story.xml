@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.EditStory">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/actiEditStory_btn_back"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/baseline_reply_35"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/actiEditStory_btn_save"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/baseline_save_as_24"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:visibility="gone"
+                android:id="@+id/actiEditStory_img_avatar"
+                android:layout_width="150dp"
+                android:layout_height="150dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:endIconMode="clear_text"
+                app:helperTextEnabled="false"
+                app:hintAnimationEnabled="true"
+                android:hint="Tên truyện"
+                app:hintEnabled="true"
+                app:passwordToggleEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/actiEditStory_ed_nameStory"
+                    android:layout_width="match_parent"
+                    android:textSize="14dp"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:endIconMode="clear_text"
+                app:helperTextEnabled="false"
+                app:hintAnimationEnabled="true"
+                android:hint="Giới thiệu"
+                app:hintEnabled="true"
+                app:passwordToggleEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/actiEditStory_ed_describe"
+                    android:layout_width="match_parent"
+                    android:textSize="14dp"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:endIconMode="clear_text"
+                app:helperTextEnabled="false"
+                app:hintAnimationEnabled="true"
+                android:hint="Ảnh bìa"
+                app:hintEnabled="true"
+                android:layout_marginBottom="15dp"
+                app:passwordToggleEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/actiEditStory_ed_avatar"
+                    android:layout_width="match_parent"
+                    android:textSize="14dp"
+                    android:layout_height="wrap_content" />
+
+                <ProgressBar
+                    android:id="@+id/actiEditStory_pg_load"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/white"
+                    android:visibility="invisible" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Nội dung truyện"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:paddingStart="5dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/black"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/actiEditStory_rc_listImage"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/actiEditStory_btn_addImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/corner_20dp_yellow"
+        android:layout_marginBottom="10dp"
+        android:text="Thêm Image"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

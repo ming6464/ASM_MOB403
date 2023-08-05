@@ -16,7 +16,7 @@ public class ContainAPI {
     public static final String UpdateElement = "/update/{id}";
     public static final String DeleteElement = "/delete/{id}";
     public static final String DeleteAll = "/delete";
-    public static final String URL = "http://192.168.43.242:9000/";
+    public static final String URL = "http://192.168.11.103:9000/";
 
     private static API_Comment API_COMMENT;
     private static API_Story API_STORY;
